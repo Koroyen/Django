@@ -1,0 +1,45 @@
+{% load static %}
+
+<footer class="bg-gray-800 text-white py-6 mt-auto">  <!-- mt-auto for sticky footer -->
+    <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+            <!-- Logo and copyright -->
+            <div class="mb-4 md:mb-0">
+                <div class="flex items-center">
+                    <img 
+                        src="{% static 'images/lugo.jpg' %}" 
+                        alt="Logo" 
+                        class="h-8 w-auto mr-2"
+                    >
+                    <span>&copy; {% now "Y" %} Reggins. All rights reserved.</span>
+                </div>
+            </div>
+
+            <!-- Links -->
+            <div class="flex space-x-6">
+                <a href="/about" class="text-gray-300 hover:text-white transition duration-300">
+                    About
+                </a>
+                <a href="/contact" class="text-gray-300 hover:text-white transition duration-300">
+                    Contact
+                </a>
+                <a href="#" class="text-gray-300 hover:text-white transition duration-300">
+                    Terms
+                </a>
+                <a href="#" class="text-gray-300 hover:text-white transition duration-300">
+                    Privacy
+                </a>
+            </div>
+
+            <!-- Social icons -->
+            <div class="mt-4 md:mt-0 flex space-x-4">
+                <a href="#" aria-label="Twitter">
+                    <svg class="h-6 w-6 text-gray-300 hover:text-white transition">...</svg>
+                </a>
+                <a href="#" aria-label="Facebook">
+                    <svg class="h-6 w-6 text-gray-300 hover:text-white transition">...</svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>

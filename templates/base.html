@@ -1,0 +1,54 @@
+{% load static tailwind_tags %}  <!-- Load tailwind tags first -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Site{% endblock %}</title>
+    
+    <!-- Remove CDN - Using django-tailwind's built-in CSS -->
+    {% tailwind_css %}
+    
+  
+    <link rel="icon" href="{% static 'images/favicon.ico' %}">
+    
+    
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="flex flex-col min-h-screen bg-gray-50">  
+    {% include "includes/navbar.html" %}
+    <main class="flex-grow container mx-auto px-4 py-8">
+        {% block content %}
+       
+        {% endblock %}
+    </main>
+
+    <footer class="bg-gray-800 text-white py-6">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; {% now "Y" %} Reggins. All rights reserved.</p>  <!-- Dynamic year -->
+            <div class="mt-2 space-x-4">  <!-- Changed mx-2 to space-x-4 -->
+                <a href="#" class="text-gray-300 hover:text-white transition">Terms</a>
+                <a href="#" class="text-gray-300 hover:text-white transition">Privacy</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile menu script (improved) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleMenu = () => {
+                const menu = document.getElementById('mobile-menu');
+                if (menu) menu.classList.toggle('hidden');
+            };
+            
+            const menuButton = document.getElementById('mobile-menu-button');
+            if (menuButton) menuButton.addEventListener('click', toggleMenu);
+        });
+    </script>
+    
+    <!-- Block for additional scripts -->
+    {% block scripts %}{% endblock %}
+</body>
+</html>
