@@ -5,31 +5,48 @@
         <div class="flex justify-between items-center h-16">
             <!-- Logo -->
             <a href="/" class="text-xl font-bold text-blue-600">
-                <img src="{% static 'images/lugo.jpg' %}"class="h-12 w-auto hover:opacity-75 transition-opacity">
+                <img src="{% static 'images/lugo.jpg' %}" class="h-12 w-auto hover:opacity-75 transition-opacity">
             </a>
-            
-            <!-- Desktop Menu -->
-            <div class="hidden md:flex space-x-8">
-                <a href="/" class="block py-2 hover:text-blue-600">Home</a>
-                <a href="/about" class="block py-2 hover:text-blue-600">About</a>
-                <a href="/announcement" class="block py-2 hover:text-blue-600">Announcement</a>
-                <a href="/free_wifi" class="block py-2 hover:text-blue-600">Free WiFi for all Hotspots</a>
-                <a href="/events" class="block py-2 hover:text-blue-600">Events</a>
-                <a href="/contact" class="block py-2 hover:text-blue-600">Contact us</a>
+
+            <!-- Search Bar - Integrated with your design -->
+            <div class="flex-1 max-w-md mx-4">
+                <form action="{% url 'hotspot_list' %}" method="get" class="relative">
+                    <input
+                        type="text"
+                        name="q"
+                        placeholder="Search hotspots..."
+                        class="w-full pl-4 pr-10 py-1.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-transparent transition-all text-sm"
+                    >
+                    <button type="submit" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-blue-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </button>
+                </form>
             </div>
-            
-            <!-- Mobile Menu Button -->
-            <button id="mobile-menu-button" class="md:hidden">
-                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                </svg>
-            </button>
-        </div>
-        
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden pb-4">
-            <a href="/about" class="block py-2 hover:text-blue-600">About</a>
-            <a href="/contact" class="block py-2 hover:text-blue-600">Contact</a>
+
+            <!-- Nav Links (Updated spacing) -->
+            <div class="hidden md:flex space-x-6">
+                <a href="/" class="block py-2 hover:text-blue-600 text-sm">Home</a>
+                <a href="/about" class="block py-2 hover:text-blue-600 text-sm">About</a>
+                <a href="/announcement" class="block py-2 hover:text-blue-600 text-sm">Announcement</a>
+                
+                <!-- Dropdown Trigger -->
+                <div class="relative group">
+                    <button class="block py-2 hover:text-blue-300 focus:outline-none text-sm flex items-center">
+                        Free WiFi ▼
+                    </button>
+                    <!-- Dropdown Menu -->
+                    <div class="absolute hidden group-hover:block bg-white shadow-lg rounded-md mt-0 w-48 z-10 border border-gray-100">
+                        <a href="/free_wifi" class="block px-4 py-2 hover:bg-blue-50 hover:text-blue-600 text-sm">Free WiFi</a>
+                        <a href="/sites" class="block px-4 py-2 hover:bg-blue-50 hover:text-blue-600 text-sm">Live Sites</a>
+                        <a href="/hotspots" class="block px-4 py-2 hover:bg-blue-50 hover:text-blue-600 text-sm">Locations</a>
+                    </div>
+                </div>
+                
+                <a href="/events" class="block py-2 hover:text-blue-600 text-sm">Events</a>
+                <a href="/contact" class="block py-2 hover:text-blue-600 text-sm">Contact</a>
+            </div>
         </div>
     </div>
 </nav>

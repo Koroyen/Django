@@ -9,17 +9,20 @@
         <title>Contact</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
         {% tailwind_css %}
-        {% comment %} <link rel="icon" href="{% static 'images/favicon.ico' %}"> {% endcomment %}
         {% block extra_head %}{% endblock %}
     </head>
-    <body>
+    <body class="flex flex-col min-h-screen bg-gray-50">
        {% include "includes/navbar.html" %}
 
+       <main class="flex-grow container mx-auto px-4 py-8">
+            {% block content %}
+            <h1>Contact Us</h1>
+            <p>If you have any questions, feel free to reach out!</p>
+            {% endblock %}
+         </main>
+        {% include "includes/footer.html" %}
 
-
-        
         <script src="" async defer></script>
     </body>
 </html>

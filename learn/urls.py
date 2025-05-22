@@ -8,5 +8,8 @@ urlpatterns = [
     path('free_wifi/', views.free_wifi, name='free_wifi'),
     path('events/', views.events, name='events'),
     path('contact/', views.contact, name='contact'),
+    path('hotspots/', views.hotspot_list, name='hotspot_list'),
+   
+    
     
 ]

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'theme.apps.ThemeConfig',
     'django_browser_reload',
     'debug_toolbar',
+    'django_extensions',
 ]
 
 STATICFILES_DIRS = [

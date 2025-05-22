@@ -1,18 +1,29 @@
+{% load static tailwind_tags %}
+
 <!DOCTYPE html>
 
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
+        <title>Free WiFi Hotspots</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         {%tailwind_css %}
         <link rel="icon" href="{% static 'images/favicon.ico' %}">
         {% block extra_head %}{% endblock %}
     </head>
-    <body>
+    <body class="flex flex-col min-h-screen bg-gray-50">
+        {% block extra_body %}{% endblock %}
       {% include "includes/navbar.html" %}  
-              
+
+        <main class="flex-grow container mx-auto px-4 py-8">
+            {% block content %}
+            <h1>Free WiFi Hotspots</h1>
+            <p>Find free WiFi hotspots near you!</p>
+            {% endblock %}
+        </main>
+
+        {% include "includes/footer.html" %}
         <script src="" async defer></script>
     </body>
 </html>
