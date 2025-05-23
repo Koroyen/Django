@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render
 from .models import Hotspot, Event 
 
@@ -28,7 +29,11 @@ def hotspot_list(request):
     if query:
         hotspots = hotspots.filter(name__icontains=query) 
     
+    paginator = Paginator(hotspots, 6)  # Show 6 per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
     return render(request, 'learn/hotspot_list.html', {
-        'hotspots': hotspots,
+        'page_obj': page_obj,
         'search_query': query  # Pass query back to template
     })

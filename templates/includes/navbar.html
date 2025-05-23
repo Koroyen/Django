@@ -1,23 +1,23 @@
 {% load static %}
 
-<nav class="bg-white shadow-lg">
+<nav class="bg-gray-900 shadow-lg">
     <div class="container mx-auto px-4">
         <div class="flex justify-between items-center h-16">
             <!-- Logo -->
-            <a href="/" class="text-xl font-bold text-blue-600">
+            <a href="/" class="text-xl font-bold text-white">
                 <img src="{% static 'images/lugo.jpg' %}" class="h-12 w-auto hover:opacity-75 transition-opacity">
             </a>
 
-            <!-- Search Bar - Integrated with your design -->
-            <div class="flex-1 max-w-md mx-4">
+            <!-- Search Bar -->
+            <div class="flex-1 max-w-md mx-4 hidden md:block">
                 <form action="{% url 'hotspot_list' %}" method="get" class="relative">
                     <input
                         type="text"
                         name="q"
                         placeholder="Search hotspots..."
-                        class="w-full pl-4 pr-10 py-1.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-transparent transition-all text-sm"
+                        class="w-full pl-4 pr-10 py-1.5 rounded-lg border border-gray-700 bg-gray-800 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm"
                     >
-                    <button type="submit" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-blue-500">
+                    <button type="submit" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-blue-400">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
@@ -25,28 +25,77 @@
                 </form>
             </div>
 
-            <!-- Nav Links (Updated spacing) -->
+            <!-- Hamburger Icon (Mobile Only) -->
+            <div class="md:hidden">
+                <button id="menu-toggle" class="text-gray-300 hover:text-blue-400 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Nav Links (Desktop Only) -->
             <div class="hidden md:flex space-x-6">
-                <a href="/" class="block py-2 hover:text-blue-600 text-sm">Home</a>
-                <a href="/about" class="block py-2 hover:text-blue-600 text-sm">About</a>
-                <a href="/announcement" class="block py-2 hover:text-blue-600 text-sm">Announcement</a>
-                
+                <a href="/" class="block py-2 hover:text-blue-400 text-sm text-gray-200">Home</a>
+                <a href="/about" class="block py-2 hover:text-blue-400 text-sm text-gray-200">About</a>
+                <a href="/announcement" class="block py-2 hover:text-blue-400 text-sm text-gray-200">Announcement</a>
+
                 <!-- Dropdown Trigger -->
                 <div class="relative group">
-                    <button class="block py-2 hover:text-blue-300 focus:outline-none text-sm flex items-center">
+                    <button class="block py-2 hover:text-blue-300 focus:outline-none text-sm flex items-center text-gray-200">
                         Free WiFi ▼
                     </button>
                     <!-- Dropdown Menu -->
-                    <div class="absolute hidden group-hover:block bg-white shadow-lg rounded-md mt-0 w-48 z-10 border border-gray-100">
-                        <a href="/free_wifi" class="block px-4 py-2 hover:bg-blue-50 hover:text-blue-600 text-sm">Free WiFi</a>
-                        <a href="/sites" class="block px-4 py-2 hover:bg-blue-50 hover:text-blue-600 text-sm">Live Sites</a>
-                        <a href="/hotspots" class="block px-4 py-2 hover:bg-blue-50 hover:text-blue-600 text-sm">Locations</a>
+                    <div class="absolute hidden group-hover:block bg-gray-800 shadow-lg rounded-md mt-0 w-48 z-10 border border-gray-700">
+                        <a href="/free_wifi" class="block px-4 py-2 hover:bg-blue-900 hover:text-blue-400 text-sm text-gray-200">Free WiFi</a>
+                        <a href="/sites" class="block px-4 py-2 hover:bg-blue-900 hover:text-blue-400 text-sm text-gray-200">Live Sites</a>
+                        <a href="/hotspots" class="block px-4 py-2 hover:bg-blue-900 hover:text-blue-400 text-sm text-gray-200">Locations</a>
                     </div>
                 </div>
-                
-                <a href="/events" class="block py-2 hover:text-blue-600 text-sm">Events</a>
-                <a href="/contact" class="block py-2 hover:text-blue-600 text-sm">Contact</a>
+
+                <a href="/events" class="block py-2 hover:text-blue-400 text-sm text-gray-200">Events</a>
+                <a href="/contact" class="block py-2 hover:text-blue-400 text-sm text-gray-200">Contact</a>
             </div>
+        </div>
+
+        <!-- Mobile Menu (with Free WiFi dropdown) -->
+        <div id="mobile-menu" class="md:hidden hidden mt-4 space-y-2 bg-gray-900 rounded-lg p-4 border border-gray-700">
+            <a href="/" class="block py-2 text-sm hover:text-blue-400 text-gray-200">Home</a>
+            <a href="/about" class="block py-2 text-sm hover:text-blue-400 text-gray-200">About</a>
+            <a href="/announcement" class="block py-2 text-sm hover:text-blue-400 text-gray-200">Announcement</a>
+
+            <!-- Clickable Dropdown -->
+            <div>
+                <button id="wifi-toggle" class="w-full text-left py-2 text-sm hover:text-blue-400 flex justify-between items-center text-gray-200">
+                    Free WiFi
+                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </button>
+                <div id="wifi-dropdown" class="hidden ml-4 space-y-1 mt-1 bg-gray-800 rounded border border-gray-700">
+                    <a href="/free_wifi" class="block py-1 text-sm hover:text-blue-400 text-gray-200">Free WiFi</a>
+                    <a href="/sites" class="block py-1 text-sm hover:text-blue-400 text-gray-200">Live Sites</a>
+                    <a href="/hotspots" class="block py-1 text-sm hover:text-blue-400 text-gray-200">Locations</a>
+                </div>
+            </div>
+
+            <a href="/events" class="block py-2 text-sm hover:text-blue-400 text-gray-200">Events</a>
+            <a href="/contact" class="block py-2 text-sm hover:text-blue-400 text-gray-200">Contact</a>
         </div>
     </div>
 </nav>
+
+<script>
+    document.getElementById('menu-toggle').addEventListener('click', function () {
+        const menu = document.getElementById('mobile-menu');
+        menu.classList.toggle('hidden');
+    });
+
+    // Toggle Free WiFi dropdown in mobile menu
+    document.getElementById('wifi-toggle').addEventListener('click', function () {
+        const dropdown = document.getElementById('wifi-dropdown');
+        dropdown.classList.toggle('hidden');
+    });
+</script>

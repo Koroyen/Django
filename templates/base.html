@@ -1,40 +1,39 @@
-{% load static tailwind_tags %}  <!-- Load tailwind tags first -->
+{% load static tailwind_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}My Site{% endblock %}</title>
     {% tailwind_css %}
-    <link rel="icon" href="{% static 'images/favicon.ico' %}">
-</head>
+    <link rel="icon" href="{% static 'images/favicon.ico' %}" />
+  </head>
 
-<body class="flex flex-col min-h-screen bg-gray-50">
-    
+  <body class="flex flex-col min-h-screen bg-gray-900">
     {% include "includes/navbar.html" %}
     <main class="flex-grow container mx-auto px-4 py-8">
         {% block content %}
-      tesssssttt
+        
         {% endblock %}
+      
     </main>
-   
-   {% include "includes/footer.html" %}
-  
+
+    {% include "includes/footer.html" %}
+
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const toggleMenu = () => {
-                const menu = document.getElementById('mobile-menu');
-                if (menu) menu.classList.toggle('hidden');
-            };
-            
-            const menuButton = document.getElementById('mobile-menu-button');
-            if (menuButton) menuButton.addEventListener('click', toggleMenu);
-        });
+      document.addEventListener("DOMContentLoaded", function () {
+        const toggleMenu = () => {
+          const menu = document.getElementById("mobile-menu");
+          if (menu) menu.classList.toggle("hidden");
+        };
+
+        const menuButton = document.getElementById("mobile-menu-button");
+        if (menuButton) menuButton.addEventListener("click", toggleMenu);
+      });
     </script>
-    
-    
+
     {% block scripts %}{% endblock %}
-</body>
+  </body>
 </html>
