@@ -14,10 +14,7 @@
   <body class="flex flex-col min-h-screen bg-gray-900">
     {% include "includes/navbar.html" %}
     <main class="flex-grow container mx-auto px-4 py-8">
-        {% block content %}
-        
-        {% endblock %}
-      
+      {% block content %} {% endblock %}
     </main>
 
     {% include "includes/footer.html" %}
@@ -34,6 +31,8 @@
       });
     </script>
 
-    {% block scripts %}{% endblock %}
+    {% block scripts %}
+    <script src="{% static 'js/hotspot_search.js' %}"></script>
+    {% endblock %}
   </body>
 </html>

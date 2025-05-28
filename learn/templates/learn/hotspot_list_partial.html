@@ -1,0 +1,101 @@
+<!-- filepath: c:\Users\Asus\Desktop\beginning\learn\templates\learn\hotspot_list_partial.html -->
+<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-5">
+  {% for hotspot in page_obj %}
+  <div
+    class="bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
+  >
+    <div class="px-4 pt-4 flex justify-end">
+      <span
+        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {% if hotspot.is_active %}bg-green-100 text-green-800{% else %}bg-red-100 text-red-800{% endif %}"
+      >
+        {% if hotspot.is_active %}Active{% else %}Inactive{% endif %}
+      </span>
+    </div>
+    <div class="p-6">
+      <div class="flex items-start">
+        <div class="flex-shrink-0 bg-blue-100 rounded-md p-3">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6 text-blue-600"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"
+            />
+          </svg>
+        </div>
+        <div class="ml-4">
+          <h3 class="text-lg font-medium text-gray-100">{{ hotspot.name }}</h3>
+          <p class="mt-1 text-sm text-gray-300">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4 inline mr-1"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+              />
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+              />
+            </svg>
+            {{ hotspot.location }}
+          </p>
+        </div>
+      </div>
+      <div class="mt-6 border-t border-gray-700 pt-4">
+        <div class="flex justify-between text-sm text-gray-400">
+          <span
+            >Added by: {{ hotspot.created_by.username|default:"Admin" }}</span
+          >
+          <a
+            href="/hotspots/{{ hotspot.id }}"
+            class="text-blue-400 hover:text-blue-200 font-medium"
+            >Details →</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+  {% empty %}
+  <div class="col-span-full text-center py-12">
+    
+  </div>
+  {% endfor %}
+</div>
+
+<div class="mt-8 flex justify-center">
+  <nav class="inline-flex rounded-md shadow-sm" aria-label="Pagination">
+     {% if page_obj.has_previous %}
+      <a href="?page={{ page_obj.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}" class="px-3 py-1 rounded-l-md bg-gray-800 text-gray-200 hover:bg-blue-900 hover:text-white border border-gray-700">Previous</a>
+    {% else %}
+      <span class="px-3 py-1 rounded-l-md bg-gray-700 text-gray-400 border border-gray-700 cursor-not-allowed">Previous</span>
+    {% endif %}
+    {% for num in page_obj.paginator.page_range %}
+      {% if page_obj.number == num %}
+        <span class="px-3 py-1 bg-blue-900 text-white border-t border-b border-gray-700">{{ num }}</span>
+      {% endif %}
+      {% if num != page_obj.number and num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+        <a href="?page={{ num }}{% if search_query %}&q={{ search_query }}{% endif %}" class="px-3 py-1 bg-gray-800 text-gray-200 hover:bg-blue-900 hover:text-white border-t border-b border-gray-700">{{ num }}</a>
+      {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}" class="px-3 py-1 rounded-r-md bg-gray-800 text-gray-200 hover:bg-blue-900 hover:text-white border border-gray-700">Next</a>
+    {% else %}
+      <span class="px-3 py-1 rounded-r-md bg-gray-700 text-gray-400 border border-gray-700 cursor-not-allowed">Next</span>
+    {% endif %}
+  </nav>
+</div>

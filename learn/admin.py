@@ -1,3 +1,7 @@
+# filepath: c:\Users\Asus\Desktop\beginning\learn\admin.py
 from django.contrib import admin
+from .models import CustomUser, Hotspot, Event
 
-# Register your models here.
+admin.site.register(CustomUser)
+admin.site.register(Hotspot)
+admin.site.register(Event)

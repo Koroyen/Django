@@ -8,22 +8,7 @@
                 <img src="{% static 'images/lugo.jpg' %}" class="h-12 w-auto hover:opacity-75 transition-opacity">
             </a>
 
-            <!-- Search Bar -->
-            <div class="flex-1 max-w-md mx-4 hidden md:block">
-                <form action="{% url 'hotspot_list' %}" method="get" class="relative">
-                    <input
-                        type="text"
-                        name="q"
-                        placeholder="Search hotspots..."
-                        class="w-full pl-4 pr-10 py-1.5 rounded-lg border border-gray-700 bg-gray-800 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm"
-                    >
-                    <button type="submit" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-blue-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                        </svg>
-                    </button>
-                </form>
-            </div>
+           
 
             <!-- Hamburger Icon (Mobile Only) -->
             <div class="md:hidden">
@@ -36,8 +21,9 @@
             </div>
 
             <!-- Nav Links (Desktop Only) -->
-            <div class="hidden md:flex space-x-6">
+            <div class="hidden md:flex space-x-6 me-5">
                 <a href="/" class="block py-2 hover:text-blue-400 text-sm text-gray-200">Home</a>
+                
                 <a href="/about" class="block py-2 hover:text-blue-400 text-sm text-gray-200">About</a>
                 <a href="/announcement" class="block py-2 hover:text-blue-400 text-sm text-gray-200">Announcement</a>
 
@@ -49,22 +35,31 @@
                     <!-- Dropdown Menu -->
                     <div class="absolute hidden group-hover:block bg-gray-800 shadow-lg rounded-md mt-0 w-48 z-10 border border-gray-700">
                         <a href="/free_wifi" class="block px-4 py-2 hover:bg-blue-900 hover:text-blue-400 text-sm text-gray-200">Free WiFi</a>
-                        <a href="/sites" class="block px-4 py-2 hover:bg-blue-900 hover:text-blue-400 text-sm text-gray-200">Live Sites</a>
+                        {% comment %} <a href="/sites" class="block px-4 py-2 hover:bg-blue-900 hover:text-blue-400 text-sm text-gray-200">Live Sites</a> {% endcomment %}
                         <a href="/hotspots" class="block px-4 py-2 hover:bg-blue-900 hover:text-blue-400 text-sm text-gray-200">Locations</a>
                     </div>
                 </div>
 
                 <a href="/events" class="block py-2 hover:text-blue-400 text-sm text-gray-200">Events</a>
                 <a href="/contact" class="block py-2 hover:text-blue-400 text-sm text-gray-200">Contact</a>
+                 <!-- Profile/Logout Dropdown Trigger -->
+            <div class="relative group">
+                <button id="profile-toggle" class=" block py-2 text-sm text-gray-200 hover:text-blue-400 focus:outline-none flex items-center">
+                    Account ▼
+                </button>
+                <div id="logout-dropdown" class="absolute hidden group-hover:block bg-gray-800 shadow-lg rounded-md mt-0 w-30 z-10 border border-gray-700">
+                    <a href="{% url 'logout' %}" class="block px-5 py-2 text-red-400 hover:bg-red-900 hover:text-white text-sm">Logout</a>
+                </div>
             </div>
-        </div>
+         </div>
+     </div>
 
         <!-- Mobile Menu (with Free WiFi dropdown) -->
         <div id="mobile-menu" class="md:hidden hidden mt-4 space-y-2 bg-gray-900 rounded-lg p-4 border border-gray-700">
             <a href="/" class="block py-2 text-sm hover:text-blue-400 text-gray-200">Home</a>
             <a href="/about" class="block py-2 text-sm hover:text-blue-400 text-gray-200">About</a>
             <a href="/announcement" class="block py-2 text-sm hover:text-blue-400 text-gray-200">Announcement</a>
-
+            
             <!-- Clickable Dropdown -->
             <div>
                 <button id="wifi-toggle" class="w-full text-left py-2 text-sm hover:text-blue-400 flex justify-between items-center text-gray-200">
@@ -76,13 +71,10 @@
                 </button>
                 <div id="wifi-dropdown" class="hidden ml-4 space-y-1 mt-1 bg-gray-800 rounded border border-gray-700">
                     <a href="/free_wifi" class="block py-1 text-sm hover:text-blue-400 text-gray-200">Free WiFi</a>
-                    <a href="/sites" class="block py-1 text-sm hover:text-blue-400 text-gray-200">Live Sites</a>
+                    {% comment %} <a href="/sites" class="block py-1 text-sm hover:text-blue-400 text-gray-200">Live Sites</a> {% endcomment %}
                     <a href="/hotspots" class="block py-1 text-sm hover:text-blue-400 text-gray-200">Locations</a>
                 </div>
             </div>
-
-            <a href="/events" class="block py-2 text-sm hover:text-blue-400 text-gray-200">Events</a>
-            <a href="/contact" class="block py-2 text-sm hover:text-blue-400 text-gray-200">Contact</a>
         </div>
     </div>
 </nav>
