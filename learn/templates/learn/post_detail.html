@@ -1,0 +1,13 @@
+{# learn/templates/learn/post_detail.html #}
+{% extends "base.html" %}
+{% block content %}
+<div class="bg-gray-800 rounded shadow p-4 mb-4">
+  {% if post.image %}
+    <img src="{{ post.image.url }}" alt="Post image" class="mb-2 rounded w-96 h-64 object-cover">
+  {% endif %}
+  <h2 class="text-xl font-bold text-white mb-2">{{ post.title }}</h2>
+  <p class="text-white">{{ post.message }}</p>
+  <span class="text-gray-400 text-xs">{{ post.created_at }}</span>
+</div>
+<a href="{% url 'home' %}" class="text-blue-400 hover:underline">Back to Home</a>
+{% endblock %}

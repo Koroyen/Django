@@ -1,29 +1,11 @@
 from django.db import models
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 from django.contrib.auth.models import BaseUserManager
 
 # Create your models here.
-class Hotspot(models.Model):
-    name = models.CharField(max_length=100)
-    location = models.CharField(max_length=100)
-    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    is_active = models.BooleanField(default=True)
-
-    def __str__(self):
-        return self.name
-
-class Event(models.Model):
-    title = models.CharField(max_length=200)
-    date = models.DateField()
-    hotspot = models.ForeignKey(Hotspot, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.title
-    
-
-    
+# Custom user manager
 class CustomUserManager(BaseUserManager):
     use_in_migrations = True
 
@@ -47,15 +29,64 @@ class CustomUserManager(BaseUserManager):
             raise ValueError('Superuser must have is_superuser=True.')
 
         return self.create_user(email, password, **extra_fields)
-    
+
+# Custom user model
 class CustomUser(AbstractUser):
-        username = None  # Remove the username field
-        email = models.EmailField('email address', unique=True)
+    username = None  # Remove the username field
+    email = models.EmailField('email address', unique=True)
 
-        USERNAME_FIELD = 'email'
-        REQUIRED_FIELDS = []
-        
-        objects = CustomUserManager()  
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
 
-        def __str__(self):
-            return self.email
+    objects = CustomUserManager()
+
+    def __str__(self):
+        return self.email
+
+# Hotspot model with audit fields
+class Hotspot(models.Model):
+    name = models.CharField(max_length=100)
+    location = models.CharField(max_length=100)
+    created_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='hotspots_created'
+    )
+    updated_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='hotspots_updated'
+    )
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    # Optionally, for soft delete/audit:
+    # deactivated_at = models.DateTimeField(null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
+# Event model
+class Event(models.Model):
+    title = models.CharField(max_length=200)
+    date = models.DateField()
+    hotspot = models.ForeignKey(Hotspot, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title
+
+# Post model with audit fields
+class Post(models.Model):
+    title = models.CharField(max_length=200)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='post_images/')
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    # Optionally, for soft delete/audit:
+    # deactivated_at = models.DateTimeField(null=True, blank=True)
+
+    def __str__(self):
+        return self.title

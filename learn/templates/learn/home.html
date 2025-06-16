@@ -1,21 +1,35 @@
 {% extends "base.html" %}
-
 {% block content %}
-   
-<h1 class="text-white">T
-       An has illud vivendum tacimates, duo eu graecis
-      eloquentiam deterruisset, usu ex alii eleifend. Ei purto iriure
-      vituperatoribus eum. Est ne decore ubique melius, eu mea ponderum
-      comprehensam, ea veri adolescens his. Ut tation cotidieque vis. Ad ludus
-      phaedrum nam, et nec quis inermis. Pri no autem officiis, brute commodo
-      conclusionemque duo at. Mea assentior interesset cu. Eu nam essent vidisse
-      legendos. Vel ridens vivendum urbanitas cu, rebum persius cum cu, ea hinc
-      democritum per. Ne duo reque aeque, sumo phaedrum interpretaris ut qui.
-      xit ne eos, ea probo viris electram qui. Amet vero omnesque sed ei, ea per
-      libris mnesarchum. Pro gloriatur philosophia eu, an eos corpora scaevola.
-      Id nam graeci vituperata, graeci nonumes appellantur ex his, nam aperiri
-      temporibus ea. Sit solet copiosae ad. Per eu causae mollis, iudico
-      volutpat ut sea.
-    
-    </h1>
-{% endblock %} 
+
+<div class="container">
+  {% for post in posts %}
+    <div class="bg-gray-800 rounded shadow p-4 mb-4 flex items-center">
+      {% if post.image %}
+        <a href="{% url 'post_detail' post.pk %}">
+          <div class="w-96 h-64 flex items-center justify-center overflow-hidden mr-6 rounded">
+            <img
+              src="{{ post.image.url }}"
+              alt="Post image"
+              class="object-cover w-full h-full"
+            />
+          </div>
+        </a>
+      {% endif %}
+      <div>
+        <a href="{% url 'post_detail' post.pk %}">
+          <h2 class="text-xl font-bold text-white mb-2 ml-4 break-words whitespace-normal">
+            {{ post.title }}
+          </h2>
+          <p class="text-white mb-1 ml-4 break-words whitespace-normal">
+            {{ post.message }}
+          </p>
+        </a>
+        <span class="text-gray-400 text-xs ml-4">{{ post.created_at }}</span>
+      </div>
+    </div>
+  {% empty %}
+    <p class="text-gray-400">No posts yet.</p>
+  {% endfor %}
+</div>
+
+{% endblock %}

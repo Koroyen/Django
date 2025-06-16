@@ -1,14 +1,12 @@
 from django.core.paginator import Paginator
 from django.contrib.auth.forms import UserCreationForm
-from django.shortcuts import render, redirect
-from .models import Hotspot, Event 
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Hotspot, Post
 from django.http import JsonResponse
 from django.template.loader import render_to_string
 from .forms import CustomUserCreationForm, CustomAuthenticationForm
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
 from django.contrib import messages
 
 class CustomLoginView(LoginView):
@@ -20,17 +18,17 @@ class CustomLoginView(LoginView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('admin_dashboard')
-# Create your views here.
+        return reverse_lazy('admin_dashboard')  # Update this to your new adminpanel URL if needed
 
+    def form_invalid(self, form):
+        messages.error(self.request, "Invalid credentials!")
+        return super().form_invalid(form)
 
 def viewing(request):
     return render(request, 'learn/viewing.html')
 
 def home(request):
     return render(request, 'learn/home.html')
-
-
 
 def about(request):
     return render(request, 'learn/about.html')
@@ -48,13 +46,13 @@ def contact(request):
     return render(request, 'learn/contact.html')
 
 def hotspot_list(request):
-    query = request.GET.get('q')  # Get search query from URL
+    query = request.GET.get('q')
     hotspots = Hotspot.objects.all().order_by('name')
     
     if query:
         hotspots = hotspots.filter(name__icontains=query) 
     
-    paginator = Paginator(hotspots, 9)  # Show 6 per page
+    paginator = Paginator(hotspots, 9)  # Show 9 per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
@@ -78,25 +76,14 @@ def register(request):
             form.save()
             return redirect('login')
     else:
-        form = UserCreationForm()  
+        form = CustomUserCreationForm() 
     return render(request, 'learn/register.html', {'form': form})
 
-class CustomLoginView(LoginView):
-    authentication_form = CustomAuthenticationForm
-    template_name = 'learn/login.html'
+def home(request):
+    posts = Post.objects.order_by('-created_at')
+    return render(request, 'learn/home.html', {'posts': posts})
+
+def post_detail(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    return render(request, 'learn/post_detail.html', {'post': post})
     
-    def form_valid(self, form):
-        messages.success(self.request, "Login successful!")
-        return super().form_valid(form)
-       
-    
-    def get_success_url(self):
-     return reverse_lazy('admin_dashboard')  
- 
-    def form_invalid(self, form):
-        messages.error(self.request, "Invalid credentials!")
-        return super().form_invalid(form)
- 
-@login_required
-def admin_dashboard(request):
-    return render(request, 'learn/admin_dashboard.html')

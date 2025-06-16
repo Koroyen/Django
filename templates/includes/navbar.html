@@ -43,14 +43,7 @@
                 <a href="/events" class="block py-2 hover:text-blue-400 text-sm text-gray-200">Events</a>
                 <a href="/contact" class="block py-2 hover:text-blue-400 text-sm text-gray-200">Contact</a>
                  <!-- Profile/Logout Dropdown Trigger -->
-            <div class="relative group">
-                <button id="profile-toggle" class=" block py-2 text-sm text-gray-200 hover:text-blue-400 focus:outline-none flex items-center">
-                    Account ▼
-                </button>
-                <div id="logout-dropdown" class="absolute hidden group-hover:block bg-gray-800 shadow-lg rounded-md mt-0 w-30 z-10 border border-gray-700">
-                    <a href="{% url 'logout' %}" class="block px-5 py-2 text-red-400 hover:bg-red-900 hover:text-white text-sm">Logout</a>
-                </div>
-            </div>
+            
          </div>
      </div>
 
@@ -85,7 +78,7 @@
         menu.classList.toggle('hidden');
     });
 
-    // Toggle Free WiFi dropdown in mobile menu
+   
     document.getElementById('wifi-toggle').addEventListener('click', function () {
         const dropdown = document.getElementById('wifi-dropdown');
         dropdown.classList.toggle('hidden');
