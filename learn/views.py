@@ -1,7 +1,7 @@
 from django.core.paginator import Paginator
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Hotspot, Post
+from .models import Hotspot, Post, Event, Announcement
 from django.http import JsonResponse
 from django.template.loader import render_to_string
 from .forms import CustomUserCreationForm, CustomAuthenticationForm
@@ -34,13 +34,15 @@ def about(request):
     return render(request, 'learn/about.html')
 
 def announcement(request):
+    announcement = Announcement.objects.all()
     return render(request, 'learn/announcement.html')
 
 def free_wifi(request):
     return render(request, 'learn/free_wifi.html')
 
 def events(request):
-    return render(request, 'learn/events.html')
+    events = Event.objects.all().order_by('-date')
+    return render(request, 'learn/events.html', {'events': events})
 
 def contact(request):
     return render(request, 'learn/contact.html')

@@ -1,6 +1,6 @@
 # filepath: c:\Users\Asus\Desktop\beginning\learn\admin.py
 from django.contrib import admin
-from .models import CustomUser, Hotspot, Event, Post
+from .models import CustomUser, Hotspot, Event, Post, Announcement
 from django.contrib.auth.admin import UserAdmin
 
 class CustomUserAdmin(UserAdmin):
@@ -43,3 +43,4 @@ admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(Hotspot, HotspotAdmin)
 admin.site.register(Event)
 admin.site.register(Post, PostAdmin)
+admin.site.register(Announcement)
